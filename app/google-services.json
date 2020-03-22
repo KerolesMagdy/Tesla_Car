@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "658291208585",
+    "firebase_url": "https://tesla-car-df370.firebaseio.com",
+    "project_id": "tesla-car-df370",
+    "storage_bucket": "tesla-car-df370.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658291208585:android:9259852ff77d941d747158",
+        "android_client_info": {
+          "package_name": "com.kerolesmagdy.teslacar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658291208585-9e0d7goanpk6hs8dbe1k3ni5d4of9ovv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6NeknYFJ-y_dievJgcxIa75cpgMNYMMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658291208585-9e0d7goanpk6hs8dbe1k3ni5d4of9ovv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

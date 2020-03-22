@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.MainActivity">
+
+    <Button
+        android:id="@+id/show_paired_devices"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:drawableStart="@drawable/paired_bt_open"
+        android:drawableLeft="@drawable/paired_bt_open"
+        android:padding="4dp"
+        android:text="@string/paired_devices"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/show_unpaired_devices"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintStart_toEndOf="@+id/bluetooth_state_btn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/show_unpaired_devices"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/colorAccent"
+        android:drawableStart="@drawable/un_paired_bt_open"
+        android:drawableLeft="@drawable/un_paired_bt_open"
+        android:padding="4dp"
+        android:text="@string/unpaired_devices"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/show_paired_devices"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintStart_toEndOf="@+id/show_paired_devices" />
+
+    <com.kerolesmagdy.teslacar.ui.ConvertButton
+        android:id="@+id/bluetooth_state_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:disable_drawable="@drawable/ic_bluetooth_disabled"
+        app:enable_drawable="@drawable/ic_bluetooth_enable"
+        app:layout_constraintBottom_toBottomOf="@+id/show_paired_devices"
+        app:layout_constraintEnd_toStartOf="@+id/show_paired_devices"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/show_paired_devices" />
+
+    <ImageView
+        android:id="@+id/shoot_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/target"
+        app:layout_constraintBottom_toTopOf="@+id/direction_buttons_view"
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.2" />
+
+    <com.kerolesmagdy.teslacar.ui.ConvertButton
+        android:id="@+id/car_mode"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:disable_drawable="@drawable/tank_disable"
+        app:enable_drawable="@drawable/tank_enable"
+        app:layout_constraintBottom_toBottomOf="@+id/show_unpaired_devices"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintTop_toTopOf="@+id/show_unpaired_devices"
+        app:layout_constraintWidth_percent="0.15" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/direction_buttons_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginLeft="84dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.27">
+
+        <ImageButton
+            android:id="@+id/up_btn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/up_btn_background"
+            android:src="@drawable/widget_image_joystick_up_pre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <ImageButton
+            android:id="@+id/left_btn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/up_btn_background"
+            android:src="@drawable/widget_image_joystick_left_pre"
+            app:layout_constraintBottom_toTopOf="@+id/down_btn"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/up_btn"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <ImageButton
+            android:id="@+id/right_btn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/up_btn_background"
+            android:src="@drawable/widget_image_joystick_right_pre"
+            app:layout_constraintBottom_toTopOf="@+id/down_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintTop_toBottomOf="@+id/up_btn"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <ImageButton
+            android:id="@+id/down_btn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/up_btn_background"
+            android:src="@drawable/widget_image_joystick_down_pre"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.kerolesmagdy.teslacar.ui.GameJoystickView
+        android:id="@+id/joystick_view"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.35"
+        app:layout_constraintWidth_percent="0.2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

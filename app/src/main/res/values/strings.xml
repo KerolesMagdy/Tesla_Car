@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Tesla Car</string>
+    <string name="paired_devices"> Paired Devices</string>
+    <string name="unpaired_devices">Unpaired Devices</string>
+    <string name="settings">Settings</string>
+    <string name="documentation">Documentation</string>
+    <string-array name="command_doc">
+        <item>Car mode : C</item>
+        <item>Automatic mode : A</item>
+        <item>Forward : F</item>
+        <item>Back : B</item>
+        <item>Right : R</item>
+        <item>Left : L</item>
+        <item>Arm Up : u</item>
+        <item>Arm Down : d</item>
+        <item>Arm Right : r</item>
+        <item>Arm Left : l</item>
+        <item>Fire : f</item>
+    </string-array>
+
+</resources>
