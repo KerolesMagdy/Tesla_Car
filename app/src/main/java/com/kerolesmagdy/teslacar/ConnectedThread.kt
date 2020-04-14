@@ -12,18 +12,29 @@ class ConnectedThread(
     private var socket: BluetoothSocket,
     private val context: Context
 ) : Thread() {
-    var sendState = false
-    var data = "S"
-    private var inputStream: InputStream? = null
+    private var sendState = false
+    var mode = DataSheet.C
+    var data = DataSheet.C
+    //    private var inputStream: InputStream? = null
     private var outStream: OutputStream? = null
 
-    fun startSend() {
+    init {
         outStream = socket.outputStream
+        Log.e("connectedThread ", " created")
+    }
+
+    override fun run() {
+
+    }
+
+    fun startSend() {
         sendState = true
         while (sendState) {
             write(data.toByteArray())
             sleep(10)
         }
+        cancel()
+
     }
 
     fun stopSend() {
@@ -33,20 +44,25 @@ class ConnectedThread(
     fun write(input: ByteArray) {
         try {
             Log.e("socket send : ", "" + input.toString())
-//            outStream.write(input)
+            if (mode == DataSheet.C)
+                outStream?.write(input)
+            else
+                outStream?.write(mode.toByteArray())
         } catch (e: IOException) {
         }
     }
 
     fun cancel() {
         try {
-            sendState = false
             socket.close()
+            sendState = false
             Log.e("closed socket", " :   success")
             Toast.makeText(context, "connection closed", Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
             Log.e("closed socket", " :   failed")
         }
     }
+
+    fun getSendStat(): Boolean = sendState
 
 }

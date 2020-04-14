@@ -1,5 +1,5 @@
 package com.kerolesmagdy.teslacar.view
-        
+
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     var unPairedBTDevices = ArrayList<BluetoothDevice>()
     private val BTMODULEUUID =
         UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") // "random" unique identifier
+
     private var loadingDialog: AlertDialog? = null
     private var pairedDevicesDialog: AlertDialog? = null
     private var unPairedDevicesDialog: AlertDialog? = null
@@ -112,6 +113,7 @@ class MainActivity : AppCompatActivity() {
         unPairedDevicesDialog = AlertDialog.Builder(this).create()
         paireddevicesCallBack = object : DevicesCallBack {
             override fun onItemClicked(device: BluetoothDevice) {
+                pairedDevicesDialog?.dismiss()
                 connect(device)
             }
         }
@@ -122,6 +124,10 @@ class MainActivity : AppCompatActivity() {
         }
         carMode?.setOnClickListener {
             carMode?.changeState()
+            if (carMode?.isActionEnable()!!)
+                changeMode(DataSheet.C)
+            else
+                changeData(DataSheet.A)
         }
 
     }
@@ -160,10 +166,13 @@ class MainActivity : AppCompatActivity() {
                 changeData(DataSheet.u)
 
             } else if (event.action == MotionEvent.ACTION_UP) {
-                if (carMode!!.isActionEnable())
-                    changeData(DataSheet.C)
-                else
-                    changeData(DataSheet.A)
+                if (connectedThread != null)
+                    changeData(DataSheet.C!!)
+
+//                if (carMode!!.isActionEnable())
+//                    changeData(DataSheet.C)
+//                else
+//                    changeData(DataSheet.A)
             }
             true
         }
@@ -173,10 +182,12 @@ class MainActivity : AppCompatActivity() {
                 changeData(DataSheet.d)
 
             } else if (event.action == MotionEvent.ACTION_UP) {
-                if (carMode!!.isActionEnable())
-                    changeData(DataSheet.C)
-                else
-                    changeData(DataSheet.A)
+                if (connectedThread != null)
+                    changeData(DataSheet.C!!)
+//                if (carMode!!.isActionEnable())
+//                    changeData(DataSheet.C)
+//                else
+//                    changeData(DataSheet.A)
             }
             true
         }
@@ -186,10 +197,13 @@ class MainActivity : AppCompatActivity() {
                 changeData(DataSheet.r)
 
             } else if (event.action == MotionEvent.ACTION_UP) {
-                if (carMode!!.isActionEnable())
-                    changeData(DataSheet.C)
-                else
-                    changeData(DataSheet.A)
+                if (connectedThread != null)
+                    changeData(DataSheet.C!!)
+
+//                if (carMode!!.isActionEnable())
+//                    changeData(DataSheet.C)
+//                else
+//                    changeData(DataSheet.A)
             }
             true
         }
@@ -199,10 +213,13 @@ class MainActivity : AppCompatActivity() {
                 changeData(DataSheet.l)
 
             } else if (event.action == MotionEvent.ACTION_UP) {
-                if (carMode!!.isActionEnable())
-                    changeData(DataSheet.C)
-                else
-                    changeData(DataSheet.A)
+                if (connectedThread != null)
+                    changeData(DataSheet.C!!)
+
+//                if (carMode!!.isActionEnable())
+//                    changeData(DataSheet.C)
+//                else
+//                    changeData(DataSheet.A)
             }
             true
         }
@@ -211,11 +228,12 @@ class MainActivity : AppCompatActivity() {
             if (event.action == MotionEvent.ACTION_UP) {
                 if (connectedThread != null)
                     connectedThread?.write(DataSheet.f.toByteArray())
-                if (carMode!!.isActionEnable())
 
-                    changeData(DataSheet.C)
-                else
-                    changeData(DataSheet.A)
+//                if (carMode!!.isActionEnable())
+//
+//                    changeData(DataSheet.C)
+//                else
+//                    changeData(DataSheet.A)
             }
             true
         }
@@ -270,35 +288,53 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    //    @Throws(IOException::class)
+//    private fun createBluetoothSocket(device: BluetoothDevice): BluetoothSocket? {
+//        return device.createRfcommSocketToServiceRecord(BTMODULEUUID)
+//    }
     @Throws(IOException::class)
     private fun createBluetoothSocket(device: BluetoothDevice): BluetoothSocket? {
         return device.createRfcommSocketToServiceRecord(BTMODULEUUID)
+        //creates secure outgoing connection with BT device using UUID
     }
 
     private fun connect(connectedBT: BluetoothDevice) {
+//        val intent = Intent(this, Main2Activity::class.java)
+//        intent.putExtra("ADDRESS", connectedBT.address)
+//        intent.putExtra("NAME", connectedBT.address)
+//
+//        startActivity(intent)
+        Log.e("selected device:", "/${connectedBT.address}")
+
         showProgress()
-        if (BTAdapter != null && !BTAdapter!!.isEnabled) {
-            showProgress()
-            Toast.makeText(baseContext, "Bluetooth not on", Toast.LENGTH_SHORT).show()
+        if (BTAdapter == null) {
+            hideProgress()
+            Log.e("Bluetooth ", "   not supported")
             return
         }
-        Log.e("Connecting...", "")
+        if (!BTAdapter!!.isEnabled) {
+            hideProgress()
+            Log.e("Bluetooth ", "   not on")
+            Toast.makeText(baseContext, "open Bluetooth", Toast.LENGTH_SHORT).show()
+            return
+        }
+        Log.e("Connecting...", " d")
         object : Thread() {
             override fun run() {
-                runOnUiThread { bluetoothStateImg?.changeState() }
                 var fail = false
-                val device: BluetoothDevice =
-                    BTAdapter!!.getRemoteDevice(connectedBT?.address)
-                Log.e("111111111111111", "")
+                val device: BluetoothDevice = BTAdapter?.getRemoteDevice(connectedBT.address)!!
+                Log.e("111111111111111", "  d")
                 try {
                     BTSocket = createBluetoothSocket(device)
-                    Log.e("bluetooth Connected", "")
+                    Log.e("bluetooth created", " d")
                 } catch (e: IOException) {
                     fail = true
                     Log.e("Socket creation failed", "" + e.message)
                 }
                 try {
                     BTSocket?.connect()
+                    Log.e("bluetooth connected", " d")
+                    runOnUiThread { bluetoothStateImg?.changeState() }
                 } catch (e: IOException) {
                     Log.e("Socket failed", "" + e.message)
                     try {
@@ -314,20 +350,25 @@ class MainActivity : AppCompatActivity() {
                         ).show()
                     }
                 }
+                hideProgress()
+
                 if (!fail) {
-                    if (connectedThread != null)
+                    Log.e("connectedThread ", " try")
+                    if (connectedThread == null)
                         connectedThread =
                             ConnectedThread(
                                 BTSocket!!,
                                 applicationContext
                             )
-
+                    if (!carMode?.isActionEnable()!!) {
+                        runOnUiThread() { carMode?.changeState() }
+                    }
+//                    connectedThread?.data = DataSheet.C
                     connectedThread?.start()
                     connectedThread?.startSend()
                 } else {
                     Log.e("Socket connection", " failed")
                 }
-                hideProgress()
             }
         }.start()
 
@@ -339,9 +380,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun changeMode(input: String) {
+        if (connectedThread != null) {
+            connectedThread?.mode = input
+        }
+    }
+
     private fun cancelConnection() {
         connectedThread?.cancel()
         connectedThread = null
+
     }
 
     private fun showProgress() {

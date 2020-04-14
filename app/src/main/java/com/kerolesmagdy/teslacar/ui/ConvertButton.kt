@@ -35,16 +35,16 @@ class ConvertButton(context: Context?, attrs: AttributeSet?) :
     }
 
     fun changeState() {
-        when (currentDrawable) {
-            enableDrawable -> {
+        when (actionEnable) {
+            true -> {
+                actionEnable = false
                 setImageDrawable(disableDrawable)
                 currentDrawable = disableDrawable
-                actionEnable = false
             }
-            disableDrawable -> {
+            false -> {
+                actionEnable = true
                 setImageDrawable(enableDrawable)
                 currentDrawable = enableDrawable
-                actionEnable = true
             }
         }
     }
